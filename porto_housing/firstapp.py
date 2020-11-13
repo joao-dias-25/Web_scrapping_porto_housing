@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import plotly.figure_factory as ff
 
-st.title("first app :)")
+st.title("My First app :)")
 st.write("""Data scrapped from a real estate website on
  all apartment offers in 5 districts in downtown Porto city""")
 
@@ -15,7 +15,7 @@ x = st.sidebar.slider(label="price €",
                                step=10000,
                                value=(50000, 800000))
 y = st.sidebar.slider(label='sqm m2', min_value=10, max_value=1000, step=10, value=(40,300))
-st.sidebar.markdown("Made with love by **João Dias**")
+
 
 st.write(f"price={x} square meter={y}")
 
@@ -30,14 +30,13 @@ import plotly.express as px
 import plotly.graph_objects as go
 from sklearn.linear_model import LinearRegression
 
-
-X = df.areau.values.reshape(-1, 1)
-
-model = LinearRegression()
-model.fit(X, df.price)
-
-x_range = np.linspace(X.min(), X.max(), 100)
-y_range = model.predict(x_range.reshape(-1, 1))
+with st.echo():
+    # Basic linear regression with one feature.
+    X = df.areau.values.reshape(-1, 1)
+    model = LinearRegression()
+    model.fit(X, df.price)
+    x_range = np.linspace(X.min(), X.max(), 100)
+    y_range = model.predict(x_range.reshape(-1, 1))
 
 fig = px.scatter(df, x='areau', y='price',opacity=0.65, hover_data=['link'])
 fig.add_traces(go.Scatter(x=x_range, y=y_range, name='Regression Fit'))
@@ -62,4 +61,8 @@ fig2 = ff.create_distplot(hist_data, group_labels, bin_size=10, colors=colors)
 fig2.update_layout(title='Flat offers distribuition on square meters', autosize=False,
                   width=800, height=800,
                   margin=dict(l=40, r=40, b=40, t=40))
-st.plotly_chart(fig2)
+if st.sidebar.checkbox('View offers distribution graph'):
+    st.plotly_chart(fig2)
+
+
+st.sidebar.markdown("Made with love by **João Dias**")
