@@ -4,14 +4,15 @@ Web scrapping data from a real estate website, cleaning data, data visualization
 
 Work done:
 
-Scrapy for web-scrapping (12.000 scrapped webpages on flats offers in Porto downtown)
+Scrapy for web-scrapping (data scrapped from 12000 webpages on flats offers in Porto downtown)
 pandas and Regex for data-cleaning
 Seaborn and plotly for data visualization
+Streamlit for deploying a interective app
 
 
 
 next steps:
 
-sklearn, autoML for price prediction
-Dash for Dashboards for better data visualization
+sklearn, autoML for better price prediction
+Tf-idf for keywords description
 Fuzziwuzzy for finding duplicates
