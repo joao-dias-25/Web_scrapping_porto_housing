@@ -8,7 +8,7 @@ st.title("""Find the best deal with ML """)
 
 
 st.subheader("Flat offers dataset in 5 districts in downtown Porto city")
-st.write("### (dataset scrapped from imovirtual on 10.11.2020)")
+st.write("### (dataset scrapped from Imovirtual on 10.11.2020)")
 
 st.sidebar.header('User input')
 
