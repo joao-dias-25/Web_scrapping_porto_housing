@@ -1,15 +1,11 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-import plotly.figure_factory as ff
+
 
 
 st.title("""Find the best deal with ML """)
-html_temp = """
-<div style="background:#025246 ;padding:10px">
-<h2 style="color:white;text-align:center;"> price prediction ML App </h2>
-</div>
-"""
+
 
 st.subheader("Flat offers dataset in 5 districts in downtown Porto city")
 st.write("### (dataset scrapped from imovirtual on 10.11.2020)")
@@ -38,8 +34,12 @@ def load_data():
     ei = pd.read_csv("clean.csv")
     ei=ei.loc[(ei.price>=x[0]) & (ei.price<=x[1])]
     ei=ei.loc[(ei.areau>=y[0]) & (ei.areau<=y[1])]
-    dist = st.sidebar.multiselect("choose district", ei['district'].unique())
-    cond = st.sidebar.multiselect("choose condition", ei['estado'].unique())
+    dist = st.sidebar.multiselect("choose district",
+                                  list(ei['district'].unique()),
+                                  default= ei['district'].unique())
+    cond = st.sidebar.multiselect("choose condition",
+                                  list(ei['estado'].unique()),
+                                  default=ei['estado'].unique())
     ei=ei.loc[lambda x: x['district'].isin(dist)]
     ei=ei.loc[lambda x: x['estado'].isin(cond)]
     return ei
@@ -81,6 +81,8 @@ st.plotly_chart(fig)
 if st.checkbox('Show dataframe'):
     st.markdown('### Raw data')
     st.write(df)
+
+import plotly.figure_factory as ff
 
 x0 = np.array(df.loc[df.Tipolo==0]['price'])
 x1 = np.array(df.loc[df.Tipolo==1]['price'])
