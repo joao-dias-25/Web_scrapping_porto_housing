@@ -4,16 +4,18 @@ import pandas as pd
 
 
 
-st.title("""Find the best deal with ML """)
+st.title("""Price regression on flats in Porto city""")
 
 
-st.subheader("Flat offers dataset in 5 districts in downtown Porto city")
-st.write("### (dataset scrapped from Imovirtual on 10.11.2020)")
+st.subheader("Flat offers dataset in 5 districts in Porto city")
+st.write("""### (dataset scrapped from Imovirtual.com on 10.11.2020)
 
+         """)
+
+st.sidebar.image("porto.png",
+                 use_column_width=True)
 st.sidebar.header('User input')
 
-st.sidebar.image("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.6IYBP2TAe_FANL6h54mO9AHaEh%26pid%3DApi&f=1",
-                 use_column_width=True)
 
 path = st.sidebar.text_input('# CSV file path (not available at the moment) ')
 if path:
@@ -75,10 +77,20 @@ else:
 fig = px.scatter(df, x='areau', y='price',opacity=0.65, title='Linear Regression based on your choices',
                  color="creation_date", hover_data=['link'])
 fig.add_traces(go.Scatter(x=x_range, y=y_range, name='Regression Fit'))
+fig.update_layout(autosize=False,
+                  width=800, height=400,
+                  margin=dict(l=0, r=0, b=0, t=40),
+                  coloraxis_colorbar=dict(
+                      title="Number of days since creation date",
+                      thicknessmode="pixels", thickness=50,
+                      lenmode="pixels", len=250)
+                      #dtick=5)
+                  )
+
 st.plotly_chart(fig)
 
 
-if st.checkbox('Show dataframe'):
+if st.checkbox('Show selected dataframe'):
     st.markdown('### Raw data')
     st.write(df)
 
@@ -99,7 +111,7 @@ colors = ['#835AF1', '#7FA6EE', '#B8A7A8','#2BCDC1', '#F66095']
 fig2 = ff.create_distplot(hist_data, group_labels, bin_size=10000, colors=colors)
 
 
-fig2.update_layout(title='Flat offers distribuition on square meters', autosize=False,
+fig2.update_layout(title='Flat offers distribuition on price', autosize=False,
                   width=800, height=800,
                   margin=dict(l=40, r=40, b=40, t=40))
 if st.sidebar.checkbox('View offers distribution graph'):
