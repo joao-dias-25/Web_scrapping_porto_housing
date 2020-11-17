@@ -8,12 +8,12 @@
 * Pandas and Regex for data-cleaning
 * Seaborn and plotly for data visualization
 * Streamlit for deploying a interactive app
-
+* deploying in Heroku
 
 
 ### next steps:
 
-* deploying in Heroku
+
 * sklearn, autoML for better price prediction
 * Tf-idf for keywords description
 * Fuzziwuzzy for finding duplicates
