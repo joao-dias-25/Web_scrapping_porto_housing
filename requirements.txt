@@ -2,4 +2,4 @@ streamlit
 numpy
 pandas
 plotly
-sklearn.linear_model
+sklearn
