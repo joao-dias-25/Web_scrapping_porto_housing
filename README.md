@@ -8,7 +8,7 @@
 * Pandas and Regex for data-cleaning
 * Seaborn and plotly for data visualization
 * Streamlit for deploying a interactive app
-* deploying in Heroku (visit <a href="https://best-deals-app.herokuapp.com/>Heroku app</a> )
+* deploying in Heroku (visit <a href="https://best-deals-app.herokuapp.com/">Heroku app</a> )
 
 
 
