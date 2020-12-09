@@ -35,7 +35,7 @@ y = st.sidebar.slider(label='sqm (m²)', min_value=10, max_value=600, step=10, v
 
 #@st.cache
 def load_data():
-    ei = pd.read_csv("clean2.csv")
+    ei = pd.read_csv("clean.csv")
     ei=ei.loc[(ei.price>=x[0]) & (ei.price<=x[1])]
     ei=ei.loc[(ei.areau>=y[0]) & (ei.areau<=y[1])]
     dist = st.sidebar.multiselect("choose district",
