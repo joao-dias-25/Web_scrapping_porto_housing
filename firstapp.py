@@ -2,16 +2,18 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 
+st.set_page_config(layout="wide")
+
 
 
 st.title("""Price regression on flats in Porto city""")
 
 
-st.subheader("Flat offers dataset in 5 districts in Porto city")
-st.write("""### (dataset scrapped from Imovirtual.com on 10.11.2020)
+st.write('''#### Flat offers in 5 districts in Porto city 
+(dataset scrapped from Imovirtual.com on 10.11.2020)''')
+st.markdown("---")
 
-         """)
-
+col1, col2 = st.beta_columns(2)
 st.sidebar.image("porto.png",
                  use_column_width=True)
 st.sidebar.header('User input')
@@ -33,7 +35,7 @@ y = st.sidebar.slider(label='sqm (m²)', min_value=10, max_value=600, step=10, v
 
 #@st.cache
 def load_data():
-    ei = pd.read_csv("clean.csv")
+    ei = pd.read_csv("clean2.csv")
     ei=ei.loc[(ei.price>=x[0]) & (ei.price<=x[1])]
     ei=ei.loc[(ei.areau>=y[0]) & (ei.areau<=y[1])]
     dist = st.sidebar.multiselect("choose district",
@@ -74,20 +76,23 @@ else:
 
 
 
-fig = px.scatter(df, x='areau', y='price',opacity=0.65, title='Linear Regression based on your choices',
-                 color="creation_date", hover_data=['link'])
+fig = px.scatter(df, x='areau', y='price',opacity=0.65,
+                 title='Linear Regression based on your choices',
+                 color="creation_date", hover_data= ['link'])
 fig.add_traces(go.Scatter(x=x_range, y=y_range, name='Regression Fit'))
 fig.update_layout(autosize=False,
-                  width=800, height=400,
-                  margin=dict(l=0, r=0, b=0, t=40),
+                  width=500, #height=400,
+                  margin=dict(l=0, r=40, b=0, t=40),
                   coloraxis_colorbar=dict(
-                      title="Number of days since creation date",
-                      thicknessmode="pixels", thickness=50,
+                      title="Days since creation date",
+                      thicknessmode="pixels", thickness=20,
                       lenmode="pixels", len=250)
                       #dtick=5)
                   )
 
-st.plotly_chart(fig)
+with col1:
+    st.plotly_chart(fig)
+
 
 
 if st.checkbox('Show selected dataframe'):
@@ -112,9 +117,10 @@ fig2 = ff.create_distplot(hist_data, group_labels, bin_size=10000, colors=colors
 
 
 fig2.update_layout(title='Flat offers distribuition on price', autosize=False,
-                  width=800, height=800,
-                  margin=dict(l=40, r=40, b=40, t=40))
-if st.sidebar.checkbox('View offers distribution graph'):
+                 width=500, #height=800,
+                  margin=dict(l=0, r=40, b=0, t=40))
+
+with col2:
     st.plotly_chart(fig2)
 
 
